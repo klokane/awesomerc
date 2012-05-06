@@ -93,8 +93,8 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
     function (widget, args) return string.format("[V :%2d%%]", args[1]) end, 11)
   volwidget:buttons(awful.util.table.join(
     awful.button({ }, 1, function () awful.util.spawn("pavucontrol") end),
-    awful.button({ }, 4, function () vicious.contrib.pulse.add(5)  vicious.force({volwidget}) end),
-    awful.button({ }, 5, function () vicious.contrib.pulse.add(-5) vicious.force({volwidget}) end)
+    awful.button({ }, 4, function () vicious.contrib.pulse.add(-5)  vicious.force({volwidget}) end),
+    awful.button({ }, 5, function () vicious.contrib.pulse.add(5) vicious.force({volwidget}) end)
   ))
 
   batwidget = widget({ type = 'textbox' })
