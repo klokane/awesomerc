@@ -82,15 +82,17 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- {{{ Vicious widgets
   memwidget = widget({ type = 'textbox' })
   vicious.cache(vicious.widgets.mem)
-  vicious.register(memwidget, vicious.widgets.mem, '[M :$1%]', 3)
+  vicious.register(memwidget, vicious.widgets.mem, 
+    function (widget, args) return string.format("[M: %2d%%]",args[1]) end, 3)
 
   cpuwidget = widget({ type = 'textbox' })
   vicious.cache(vicious.widgets.cpu)
-  vicious.register(cpuwidget, vicious.widgets.cpu, '[C :$1%]', 1)
+  vicious.register(cpuwidget, vicious.widgets.cpu, 
+    function (widget, args) return string.format("[C: %2d%%]",args[1]) end, 1)
 
   volwidget = widget({ type = 'textbox' })
   vicious.register(volwidget, vicious.contrib.pulse, 
-    function (widget, args) return string.format("[V :%2d%%]", args[1]) end, 11)
+    function (widget, args) return string.format("[V: %2d%%]", args[1]) end, 11)
   volwidget:buttons(awful.util.table.join(
     awful.button({ }, 1, function () awful.util.spawn("pavucontrol") end),
     awful.button({ }, 4, function () vicious.contrib.pulse.add(-5)  vicious.force({volwidget}) end),
@@ -101,7 +103,7 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
   vicious.cache(vicious.widgets.bat)
   vicious.register(batwidget, vicious.widgets.bat, 
     function(widget, args) 
-      local label = string.format("[%s :%2d%%",args[1],args[2]) 
+      local label = string.format("[%s: %2d%%",args[1],args[2]) 
       if args[3] ~= 'N/A' 
       then 
         label = label .. " (" .. args[3] .. ")"
